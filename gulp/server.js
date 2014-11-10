@@ -6,7 +6,7 @@ var util = require('util');
 
 var browserSync = require('browser-sync');
 
-var middleware = require('./proxy');
+var modRewrite = require('connect-modrewrite');
 
 function browserSyncInit(baseDir, files, browser) {
   browser = browser === undefined ? 'default' : browser;
@@ -24,7 +24,9 @@ function browserSyncInit(baseDir, files, browser) {
     startPath: '/index.html',
     server: {
       baseDir: baseDir,
-      middleware: middleware,
+      middleware: [
+        modRewrite([ '!\\.\\w+$ /index.html [L]' ])
+      ],
       routes: routes
     },
     browser: browser
