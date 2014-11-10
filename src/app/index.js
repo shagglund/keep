@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kassa', ['ngAnimate', 'ngTouch', 'ui.router', 'firebase', 'smart-table'])
-.constant('FirebaseRootUrl', 'https://<your firebase>.firebaseio.com')
+.constant('FirebaseRootUrl', 'https://aky-kassa.firebaseio.com')
 .constant('Firebase', Firebase)
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -20,6 +20,15 @@ angular.module('kassa', ['ngAnimate', 'ngTouch', 'ui.router', 'firebase', 'smart
       url: '/new'
     })
     .state('root.products.edit', {
+      url: '/:id'
+    })
+    .state('root.accounts', {
+      url: '/accounts'
+    })
+    .state('root.accounts.new', {
+      url: '/new'
+    })
+    .state('root.accounts.edit', {
       url: '/:id'
     });
 
