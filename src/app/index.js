@@ -59,6 +59,31 @@ angular.module('kassa', ['ngAnimate', 'ngTouch', 'ui.router', 'firebase', 'smart
           template: '<account><account>'
         }
       }
+    })
+    .state('root.buy', {
+      url: '/buy',
+      views: {
+        '@root' : {
+          templateUrl: '/app/buys/content.html'
+        },
+        '@root.buy' : {
+          template: '<buyer-list></buyer-list>'
+        },
+        'sidelist@root.buy': {
+          template: '<buy-list></buy-list>'
+        }
+      }
+    })
+    .state('root.buy.products', {
+      url: '/products',
+      views: {
+        '@root.buy' : {
+          template: '<buy-product-list></buy-product-list>'
+        },
+        'sidelist@root.buy': {
+          template: '<basket></basket>'
+        }
+      }
     });
 
   $urlRouterProvider.otherwise('/');

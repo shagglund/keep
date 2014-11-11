@@ -1,0 +1,46 @@
+<table class="table table-striped table-hover" st-table="ctrl.products">
+  <thead>
+    <tr>
+      <th class="text-center" st-sort="name" st-skip-natural="true">Name</th>
+      <th class="text-center" st-sort="price" st-skip-natural="true">Price</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="product in ctrl.products track by product.$id">
+      <td class="col-xs-4 text-center vertical-center">
+        <button
+          class="btn-block btn-link"
+          ng-click="ctrl.basket.products[product.$id] = 1"
+          ng-disabled="ctrl.basket.products[product.$id]"
+          >
+          {{ product.name }}
+        </button>
+      </td>
+      <td class="col-xs-2 text-center vertical-center">
+        {{ product.price | currency }}
+      </td>
+      <td class="col-xs-4 col-sm-2 text-center vertical-center">
+        <input
+          type="number"
+          class="form-control input-sm"
+          min=1
+          step=1
+          ng-show="ctrl.basket.products[product.$id] !== undefined"
+          ng-model="ctrl.basket.products[product.$id]"
+          >
+      </td>
+      <td class="col-xs-2 text-center vertical-center">
+        <button
+          class="btn-block btn-link"
+          ng-show="ctrl.basket.products[product.$id] !== undefined"
+          ng-click="ctrl.remove(ctrl.basket.products, product.$id)"
+          >
+          <span class="fa fa-fw fa-remove"></span>
+          <span> Remove </span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
