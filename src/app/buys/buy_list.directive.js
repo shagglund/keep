@@ -4,7 +4,7 @@ angular.module('kassa')
 .directive('buyList', function($firebase, Firebase, FirebaseRootUrl){
 
   var buyListCtrl = function(){
-    this.buys = $firebase(new Firebase(FirebaseRootUrl + '/buys/')).$asArray();
+    this.buys = $firebase(new Firebase(FirebaseRootUrl + '/buys/').limitToLast(25)).$asArray();
     this.buyers = $firebase(new Firebase(FirebaseRootUrl + '/accounts/')).$asArray();
     this.products = $firebase(new Firebase(FirebaseRootUrl + '/products/')).$asArray();
   };

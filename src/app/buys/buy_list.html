@@ -3,21 +3,15 @@
     <tr>
       <th class="text-center">Name</th>
       <th class="text-center">Products</th>
+      <th class="text-center">At</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="buy in ctrl.buys track by buy.$id">
+    <tr ng-repeat="buy in ctrl.buys | orderBy:'+createdAt' track by buy.$id">
       <td class="text-center vertical-center">
-        <div class="row">
-          <a ng-href="/accounts/{{buy.buyerId}}">
-            {{ ctrl.buyers.$getRecord(buy.buyerId).name }}
-          </a>
-        </div>
-        <div class="row">
-          <small class="h6 text-muted">
-            {{ buy.createdAt|date:'d.M.yyyy HH:mm' }}
-          </small>
-        </div>
+        <a ng-href="/accounts/{{buy.buyerId}}">
+          {{ ctrl.buyers.$getRecord(buy.buyerId).name }}
+        </a>
       </td>
       <td class="text-center vertical-center">
         <div ng-repeat="(productId, amount) in buy.products">
@@ -26,6 +20,11 @@
             {{ ctrl.products.$getRecord(productId).name }}
           </a>
         </div>
+      </td>
+      <td class="text-center vertical-center">
+        <small class="h6 text-muted">
+          {{ buy.createdAt|date:'d.M.yyyy HH:mm' }}
+        </small>
       </td>
     </tr>
   </tbody>
