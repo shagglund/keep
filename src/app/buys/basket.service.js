@@ -19,7 +19,8 @@ angular.module('kassa')
       var self = this,
         buy = {
           buyerId: this.buyerId,
-          products: this.products
+          products: this.products,
+          createdAt: Firebase.ServerValue.TIMESTAMP
         };
 
       return $firebase(accountCollectionFirebase.$ref().child(this.buyerId)).$transaction(function(account){
