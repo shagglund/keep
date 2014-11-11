@@ -94,7 +94,7 @@
             {{ change.amount | currency }}
           </td>
           <td>{{ change.note }}</td>
-          <td>{{ (ctrl.accounts|filter:{$id: change.by})[0].name }}</td>
+          <td>{{ ctrl.accounts|filter:{$id: change.by}|first:'name' }}</td>
           <td>{{ change.createdAt | date:'longDate' }}</td>
         </tr>
       </tbody>

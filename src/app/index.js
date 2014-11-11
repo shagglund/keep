@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('kassa', ['ngAnimate', 'ngTouch', 'ui.router', 'firebase', 'smart-table'])
-.constant('FirebaseRootUrl', 'https://aky-kassa.firebaseio.com')
+angular.module('kassa', ['ngAnimate', 'ngTouch', 'ui.router', 'firebase', 'smart-table', 'kassaConfig'])
 .constant('Firebase', Firebase)
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -14,26 +13,53 @@ angular.module('kassa', ['ngAnimate', 'ngTouch', 'ui.router', 'firebase', 'smart
       url: '/'
     })
     .state('root.products', {
-      url: '/products'
+      url: '/products',
+      views: {
+        '@root' : {
+          template: '<product-list><product-list>'
+        }
+      }
     })
     .state('root.products.new', {
-      url: '/new'
+      url: '/new',
+      views: {
+        '@root' : {
+          template: '<product><product>'
+        }
+      }
     })
     .state('root.products.edit', {
-      url: '/:id'
+      url: '/:id',
+      views: {
+        '@root' : {
+          template: '<product><product>'
+        }
+      }
     })
     .state('root.accounts', {
-      url: '/accounts'
+      url: '/accounts',
+      views: {
+        '@root' : {
+          template: '<account-list><account-list>'
+        }
+      }
     })
     .state('root.accounts.new', {
-      url: '/new'
+      url: '/new',
+      views: {
+        '@root' : {
+          template: '<account><account>'
+        }
+      }
     })
     .state('root.accounts.edit', {
-      url: '/:id'
+      url: '/:id',
+      views: {
+        '@root' : {
+          template: '<account><account>'
+        }
+      }
     });
 
   $urlRouterProvider.otherwise('/');
-})
-.run(function($rootScope, $state){
-  $rootScope.$state = $state;
 });

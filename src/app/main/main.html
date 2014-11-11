@@ -1,17 +1,4 @@
 <div class="container">
-
   <div ng-include="'components/navbar/navbar.html'"></div>
-
-  <div ng-if="$state.is('root.products')">
-    <product-list><product-list>
-  </div>
-  <div ng-if="$state.is('root.products.new') || $state.is('root.products.edit')">
-    <product><product>
-  </div>
-  <div ng-if="$state.is('root.accounts')">
-    <account-list><account-list>
-  </div>
-  <div ng-if="$state.is('root.accounts.new') || $state.is('root.accounts.edit')">
-    <account><account>
-  </div>
+  <div ui-view></div>
 </div>
