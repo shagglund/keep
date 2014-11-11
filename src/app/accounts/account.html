@@ -72,7 +72,7 @@
       <div class="form-group">
         <div class="col-xs-12 col-sm-8 col-sm-offset-4">
           <div class="pull-right">
-            <button type="submit" class="btn btn-success" ng-click="ctrl.changeBalance(ctrl.account, ctrl.balanceChanges, ctrl.change)" ng-disabled="ctrl.saving || balanceForm.$pristine || !balanceForm.$valid">
+            <button type="submit" class="btn btn-success" ng-click="ctrl.changeBalance(ctrl.balanceChanges, ctrl.change)" ng-disabled="ctrl.saving || balanceForm.$pristine || !balanceForm.$valid">
               <span class="fa fa-fw fa-save" ng-if="!ctrl.saving"></span>
               <span class="fa fa-fw fa-spinner" ng-if="ctrl.saving"></span>
               <span> Change </span>
@@ -94,7 +94,7 @@
             {{ change.amount | currency }}
           </td>
           <td>{{ change.note }}</td>
-          <td>{{ ctrl.accounts|filter:{$id: change.by}|first:'name' }}</td>
+          <td>{{ ctrl.accounts.$getRecord(change.by).name }}</td>
           <td>{{ change.createdAt | date:'longDate' }}</td>
         </tr>
       </tbody>

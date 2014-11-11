@@ -60,17 +60,21 @@ angular.module('kassa')
   };
 
   //Note: Only usable in update context
-  accountCtrl.prototype.changeBalance = function(account, balanceChanges, change){
+  accountCtrl.prototype.changeBalance = function(balanceChanges, change){
     var self = this;
     change.createdAt = Firebase.ServerValue.TIMESTAMP;
-    this._firebase.$transaction(function(){
+    this._firebase.$transaction(function(account){
       account.balance = account.balance + change.amount;
-      $q.when([account.$save(), balanceChanges.$add(change)]).then(function(){
-        self.change = {};
-        Message.success(BALANCE_SUCCESS_MSG);
-      }, function(error){
-        Message.error(BALANCE_FAIL_MSG + error);
-      });
+      return account;
+    })
+    .then(function(){
+      return balanceChanges.$add(change);
+    })
+    .then(function(){
+      self.change = {};
+      Message.success(BALANCE_SUCCESS_MSG);
+    }, function(error){
+      Message.error(BALANCE_FAIL_MSG + error);
     });
   };
 
