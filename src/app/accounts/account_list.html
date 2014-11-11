@@ -9,6 +9,7 @@
         <tr>
           <th st-sort="name" st-skip-natural="true">Name</th>
           <th class="text-center" st-sort="email" st-skip-natural="true">Email</th>
+          <th class="text-center" st-sort="available" st-skip-natural="true">Available</th>
           <th class="text-center" st-sort="balance" st-skip-natural="true">Balance</th>
           <th class="text-center" st-sort="buyCount" st-skip-natural="true">Bought</th>
           <th class="text-center" st-sort="createdAt" st-skip-natural="true">Created At</th>
@@ -34,6 +35,10 @@
           </td>
           <td class="text-center vertical-center">
             {{ account.email }}
+          </td>
+          <td class="text-center vertical-center">
+            <span class="fa fa-fw fa-check text-success" ng-if="account.available"></span>
+            <span class="fa fa-fw fa-times text-danger" ng-if="!account.available"></span>
           </td>
           <td class="text-center vertical-center">
             {{ account.balance | currency }}

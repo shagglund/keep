@@ -26,6 +26,16 @@
           {{ buy.createdAt|date:'d.M.yyyy HH:mm' }}
         </small>
       </td>
+      <td class="text-center vertical-center">
+        <button
+          type="button"
+          class="btn btn-danger"
+          ng-click="ctrl.remove(buy)"
+          ng-disabled="!ctrl.canDelete(buy)"
+          >
+          <span class="fa fa-fw fa-trash"></span>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
