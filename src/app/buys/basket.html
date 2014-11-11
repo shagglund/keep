@@ -39,7 +39,7 @@
               class="form-control"
               required=true
               ng-model="ctrl.basket.buyerId"
-              ng-options="account.$id as account.name for account in ctrl.accounts"
+              ng-options="account.$id as account.name for account in ctrl.accounts | filter:{ available: true }"
               >
               <option value="">Select Buyer</option>
             </select>

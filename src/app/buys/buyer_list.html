@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="account in buyerCollection track by account.$id">
+    <tr ng-repeat="account in buyerCollection | filter:{ available: true } track by account.$id">
       <td class="vertical-center">
         <button class="btn-block btn-link" ng-click="ctrl.selectBuyer(account)">
           {{ account.name }}

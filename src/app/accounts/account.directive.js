@@ -16,10 +16,12 @@ angular.module('kassa')
 
     if (create) {
       account.createdAt = Firebase.ServerValue.TIMESTAMP;
+      account.updatedAt = Firebase.ServerValue.TIMESTAMP;
       account.balance = 0;
       account.buyCount = 0;
       promise = ctrl._firebase.$push(account);
     } else {
+      account.updatedAt = Firebase.ServerValue.TIMESTAMP;
       promise = account.$save();
     }
 
@@ -65,6 +67,7 @@ angular.module('kassa')
     change.createdAt = Firebase.ServerValue.TIMESTAMP;
     this._firebase.$transaction(function(account){
       account.balance = account.balance + change.amount;
+      account.updatedAt = Firebase.ServerValue.TIMESTAMP;
       return account;
     })
     .then(function(){
