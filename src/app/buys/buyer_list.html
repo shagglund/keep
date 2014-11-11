@@ -5,6 +5,12 @@
       <th class="text-center" st-sort="balance" st-skip-natural="true">Balance</th>
       <th class="text-center" st-sort="buyCount" st-skip-natural="true">Bought</th>
     </tr>
+    <tr>
+      <th>
+        <input st-search="'name'" placeholder="Name" class="input-sm form-control" type="search"/>
+      </th>
+      <th colspan=2></th>
+    </tr>
   </thead>
   <tbody>
     <tr ng-repeat="account in buyerCollection | filter:{ available: true } track by account.$id">

@@ -15,6 +15,12 @@
           <th class="text-center" st-sort="updatedAt" st-skip-natural="true">Updated At</th>
           <th class="text-center" st-sort="lastBoughtAt" st-skip-natural="true">Last Bought At</th>
         </tr>
+        <tr>
+          <th>
+            <input st-search="'name'" placeholder="Name" class="input-sm form-control" type="search"/>
+          </th>
+          <th colspan=6></th>
+        </tr>
       </thead>
       <tbody>
         <tr ng-repeat="product in productCollection track by product.$id">
