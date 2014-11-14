@@ -87,4 +87,7 @@ angular.module('kassa', ['ngAnimate', 'ngTouch', 'ui.router', 'firebase', 'smart
     });
 
   $urlRouterProvider.otherwise('/');
+})
+.run(function($log){
+  $log.info('Fork me on github: https://github.com/flipflops/keep');
 });
