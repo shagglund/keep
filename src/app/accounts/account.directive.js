@@ -18,6 +18,7 @@ angular.module('kassa')
     BALANCE_SUCCESS_MSG = 'Balance changed successfully',
     BALANCE_FAIL_MSG = 'Balance change failed';
 
+
   function createOrUpdate(ctrl, account, create){
     var promise = null;
 
@@ -33,7 +34,7 @@ angular.module('kassa')
         account.identifiers[authData.user.uid] = authData.user.email;
         //reset and send a new password link to act as an auto generated password & email validation
         authenticator.$sendPasswordResetEmail(authData.user.email);
-        return ctrl._firebase.$push(account);
+        return ctrl.accounts.$add(account);
       });
     } else {
       account.updatedAt = Firebase.ServerValue.TIMESTAMP;
@@ -52,15 +53,11 @@ angular.module('kassa')
   }
 
   var accountCtrl = function(){
-    var accountCollectionRef = new Firebase(FirebaseRootUrl + '/accounts/');
     if (angular.isDefined($stateParams.id)) {
-      var accountRef = accountCollectionRef.child($stateParams.id);
-      this.accounts = $firebase(accountCollectionRef).$asArray();
-      this._firebase = $firebase(accountRef);
-      this.account = this._firebase.$asObject();
+      this.accounts = $firebase(new Firebase(FirebaseRootUrl + '/accounts/')).$asArray();
+      this.account = $firebase(new Firebase(FirebaseRootUrl + '/accounts/' + $stateParams.id)).$asObject();
       this.balanceChanges = $firebase(new Firebase(FirebaseRootUrl + '/balanceChanges/' + $stateParams.id)).$asArray();
     } else {
-      this._firebase = $firebase(accountCollectionRef);
       this.account = {};
     }
   };
@@ -80,20 +77,21 @@ angular.module('kassa')
   accountCtrl.prototype.changeBalance = function(balanceChanges, change){
     var self = this;
     change.createdAt = Firebase.ServerValue.TIMESTAMP;
-    this._firebase.$transaction(function(account){
-      account.balance = account.balance + change.amount;
-      account.updatedAt = Firebase.ServerValue.TIMESTAMP;
-      return account;
-    })
-    .then(function(){
-      return balanceChanges.$add(change);
-    })
-    .then(function(){
-      self.change = {};
-      Message.success(BALANCE_SUCCESS_MSG);
-    }, function(error){
-      Message.error(BALANCE_FAIL_MSG + error);
-    });
+
+    return balanceChanges
+      .$add(change)
+      .then(function(){
+        var account = self.account;
+        account.balance = account.balance + change.amount;
+        account.updatedAt = Firebase.ServerValue.TIMESTAMP;
+        account.$save();
+      })
+      .then(function(){
+        self.change = {};
+        Message.success(BALANCE_SUCCESS_MSG);
+      }, function(error){
+        Message.error(BALANCE_FAIL_MSG + error);
+      });
   };
 
   return {

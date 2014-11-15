@@ -7,10 +7,8 @@ angular.module('kassa')
     TYPE_DELETE = 2;
 
   var firebase = $firebase(new Firebase(FirebaseRootUrl + '/buys')),
-    productCollectionFirebase = $firebase(new Firebase(FirebaseRootUrl + '/products')),
-    products = productCollectionFirebase.$asArray(),
-    accountCollectionFirebase = $firebase(new Firebase(FirebaseRootUrl + '/accounts')),
-    accounts = accountCollectionFirebase.$asArray();
+    products = $firebase(new Firebase(FirebaseRootUrl + '/products')).$asArray(),
+    accounts = $firebase(new Firebase(FirebaseRootUrl + '/accounts')).$asArray();
 
   function productCount(buy){
     return Object.keys(buy.products)
@@ -28,6 +26,7 @@ angular.module('kassa')
       account.buyCount -= productCount(buy);
       //TODO get previous last buy at timestamp from accounts buys
     }
+    accounts.$save(account);
   }
 
   function updateProducts(buy, serverProducts, add, type){
@@ -40,6 +39,7 @@ angular.module('kassa')
           product.buyCount -= buy.products[productId];
           //TODO get previous last bought at timestamp from products buys
         }
+        products.$save(product);
       }
     });
   }
@@ -56,20 +56,19 @@ angular.module('kassa')
       if (buy.$id) {
         throw new Error('Tried to persist buy that was already created');
       }
+      var account = accounts.$getRecord(buy.buyerId);
+      if (!account) {
+        throw new Error('Could not find account: ' + buy.buyerId);
+      }
+
       buy.createdAt = Firebase.ServerValue.TIMESTAMP;
 
       return firebase
         .$push(buy)
         .then(function(){
-          return $firebase(accountCollectionFirebase.$ref().child(buy.buyerId)).$transaction(function(account){
-            updateAccount(buy, account, TYPE_CREATE);
-            return account;
-          });
+          updateAccount(buy, account, TYPE_CREATE);
         }).then(function(){
-          return productCollectionFirebase.$transaction(function(products){
-            updateProducts(buy, products, TYPE_CREATE);
-            return products;
-          });
+          updateProducts(buy, products, TYPE_CREATE);
         });
     },
     delete: function(buy){
@@ -80,18 +79,17 @@ angular.module('kassa')
         throw new Error('Tried to remove a buy that is too old');
       }
 
+      var account = accounts.$getRecord(buy.buyerId);
+      if (!account) {
+        throw new Error('Could not find account: ' + buy.buyerId);
+      }
+
       return firebase
         .$remove(buy.$id)
         .then(function(){
-          return $firebase(accountCollectionFirebase.$ref().child(buy.buyerId)).$transaction(function(account){
-            updateAccount(buy, account, TYPE_DELETE);
-            return account;
-          });
+          updateAccount(buy, account, TYPE_DELETE);
         }).then(function(){
-          return productCollectionFirebase.$transaction(function(products){
-            updateProducts(buy, products, TYPE_DELETE);
-            return products;
-          });
+          updateProducts(buy, products, TYPE_DELETE);
         });
     },
     canDelete: function(buy){
