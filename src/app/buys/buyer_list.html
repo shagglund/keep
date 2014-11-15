@@ -1,11 +1,13 @@
 <table class="table table-striped table-hover" st-table="buyerCollection" st-safe-src="ctrl.buyers">
   <thead>
     <tr>
+      <th></th>
       <th class="text-center" st-sort="name" st-skip-natural="true">Name</th>
       <th class="text-center" st-sort="balance" st-skip-natural="true">Balance</th>
       <th class="text-center" st-sort="buyCount" st-skip-natural="true">Bought</th>
     </tr>
     <tr>
+      <th></th>
       <th>
         <input st-search="'name'" placeholder="Name" class="input-sm form-control" type="search"/>
       </th>
@@ -13,9 +15,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="account in buyerCollection | filter:{ available: true } track by account.$id">
+    <tr
+      class="selection"
+      ng-repeat="account in buyerCollection | filter:{ available: true } track by account.$id"
+      ng-click="ctrl.selectBuyer(account)"
+      >
       <td class="vertical-center">
-        <button class="btn-block btn-link" ng-click="ctrl.selectBuyer(account)">
+        <img gravatar-src-once="account.email" />
+      </td>
+      <td class="vertical-center">
+        <button class="btn-block btn-link">
           {{ account.name }}
         </button>
       </td>

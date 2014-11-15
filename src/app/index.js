@@ -1,6 +1,14 @@
 'use strict';
 
-angular.module('kassa', ['ngAnimate', 'ngTouch', 'ui.router', 'firebase', 'smart-table', 'kassaConfig'])
+angular.module('kassa', [
+  'ngAnimate',
+  'ngTouch',
+  'ui.router',
+  'ui.gravatar',
+  'firebase',
+  'smart-table',
+  'kassaConfig'
+])
 .constant('Firebase', Firebase)
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -87,6 +95,15 @@ angular.module('kassa', ['ngAnimate', 'ngTouch', 'ui.router', 'firebase', 'smart
     });
 
   $urlRouterProvider.otherwise('/');
+})
+.config(function(gravatarServiceProvider) {
+  gravatarServiceProvider.defaults = {
+    size     : 33,
+    'default': 'mm'  // Mystery man as default for missing avatars
+  };
+
+  // Use https endpoint
+  gravatarServiceProvider.secure = true;
 })
 .run(function($log){
   $log.info('Fork me on github: https://github.com/flipflops/keep');

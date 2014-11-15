@@ -1,17 +1,22 @@
-<table class="table table-striped table-hover table-condensed">
+<table class="table table-striped table-hover">
   <thead>
     <tr>
       <th class="text-center">Name</th>
       <th class="text-center">Products</th>
-      <th class="text-center">At</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="buy in ctrl.buys | orderBy:'+createdAt' track by buy.$id">
       <td class="text-center vertical-center">
-        <a ng-href="/accounts/{{buy.buyerId}}">
-          {{ ctrl.buyers.$getRecord(buy.buyerId).name }}
-        </a>
+        <div class="row">
+          <a ng-href="/accounts/{{buy.buyerId}}">
+            {{ ctrl.buyers.$getRecord(buy.buyerId).name }}
+          </a>
+        </div>
+        <div class="row">
+          <span class="small text-muted">{{ ::buy.createdAt | date:'d.M.yyyy HH:mm' }}</span>
+        </div>
       </td>
       <td class="text-center vertical-center">
         <div ng-repeat="(productId, amount) in buy.products">
@@ -22,16 +27,11 @@
         </div>
       </td>
       <td class="text-center vertical-center">
-        <small class="h6 text-muted">
-          {{ buy.createdAt|date:'d.M.yyyy HH:mm' }}
-        </small>
-      </td>
-      <td class="text-center vertical-center">
         <button
           type="button"
           class="btn btn-danger"
           ng-click="ctrl.remove(buy)"
-          ng-disabled="!ctrl.canDelete(buy)"
+          ng-show="ctrl.canDelete(buy)"
           >
           <span class="fa fa-fw fa-trash"></span>
         </button>
