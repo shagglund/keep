@@ -80,7 +80,7 @@ angular.module('kassa', [
       }
     })
     .state('root.buy', {
-      url: '/',
+      url: '/buy',
       views: {
         '@root' : {
           templateUrl: '/app/buys/content.html'

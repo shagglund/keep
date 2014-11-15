@@ -19,7 +19,7 @@ angular.module('kassa')
           delete search.next;
 
           $location.search(search);
-          $location.path(next || '');
+          $location.path(next || '/buy');
         }, function(error){
           Message.error('Login failed: ' + error);
         })
