@@ -28,10 +28,8 @@ angular.module('kassa', [
     })
     .state('root', {
       url: '',
+      abstract: true,
       templateUrl: 'app/main/main.html',
-    })
-    .state('root.default', {
-      url: '/'
     })
     .state('root.products', {
       url: '/products',
@@ -82,7 +80,7 @@ angular.module('kassa', [
       }
     })
     .state('root.buy', {
-      url: '/buy',
+      url: '/',
       views: {
         '@root' : {
           templateUrl: '/app/buys/content.html'
