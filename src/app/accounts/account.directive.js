@@ -1,15 +1,22 @@
 'use strict';
 
 angular.module('kassa')
-.directive('account', function($q, $state, $stateParams, $firebase, Firebase, FirebaseRootUrl, Message){
+.directive('account', function(
+  $q,
+  $state,
+  $stateParams,
+  $firebase,
+  $firebaseSimpleLogin,
+  Firebase,
+  FirebaseRootUrl,
+  Message){
+
   var CREATE_SUCCESS_MSG = 'Account created successfully',
     UPDATE_SUCCESS_MSG = 'Account updated successfully',
     CREATE_FAIL_MSG = 'Account create failed: ',
     UPDATE_FAIL_MSG = 'Account update failed: ',
     BALANCE_SUCCESS_MSG = 'Balance changed successfully',
     BALANCE_FAIL_MSG = 'Balance change failed';
-
-
 
   function createOrUpdate(ctrl, account, create){
     var promise = null;
@@ -19,7 +26,15 @@ angular.module('kassa')
       account.updatedAt = Firebase.ServerValue.TIMESTAMP;
       account.balance = 0;
       account.buyCount = 0;
-      promise = ctrl._firebase.$push(account);
+      var authenticator = $firebaseSimpleLogin(new Firebase(FirebaseRootUrl));
+      //use default as a password placeholder until user is created -> resets password right after
+      promise = authenticator.$createUser(account.email, 'default').then(function(authData){
+        account.identifiers = {};
+        account.identifiers[authData.user.uid] = authData.user.email;
+        //reset and send a new password link to act as an auto generated password & email validation
+        authenticator.$sendPasswordResetEmail(authData.user.email);
+        return ctrl._firebase.$push(account);
+      });
     } else {
       account.updatedAt = Firebase.ServerValue.TIMESTAMP;
       promise = account.$save();

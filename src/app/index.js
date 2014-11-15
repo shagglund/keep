@@ -13,6 +13,19 @@ angular.module('kassa', [
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
   $stateProvider
+    .state('auth', {
+      url: '/auth',
+      abstract: true,
+      template: '<ui-view></ui-view>'
+    })
+    .state('auth.login', {
+      url: '/login?next',
+      template: '<login><login>'
+    })
+    .state('auth.reset', {
+      url: '/reset',
+      template: '<reset-password><reset-password>'
+    })
     .state('root', {
       url: '',
       templateUrl: 'app/main/main.html',
