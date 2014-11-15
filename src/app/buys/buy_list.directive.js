@@ -11,6 +11,9 @@ angular.module('kassa')
   buyListCtrl.prototype.canDelete = Buy.canDelete;
 
   buyListCtrl.prototype.remove = Buy.delete;
+  buyListCtrl.prototype.buyAgain = function(buy){
+    return Buy.create({ buyerId: buy.buyerId, products: buy.products });
+  };
 
   return {
     scope: {},

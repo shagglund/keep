@@ -29,10 +29,18 @@
       <td class="text-center vertical-center">
         <button
           type="button"
+          class="btn btn-success"
+          ng-click="ctrl.buyAgain(buy)"
+          >
+          <span class="fa fa-fw fa-shopping-cart"></span>
+        </button>
+      </td>
+      <td class="text-center vertical-center">
+        <button
+          type="button"
           class="btn btn-danger"
           ng-click="ctrl.remove(buy)"
           ng-show="ctrl.canDelete(buy)"
-          ng-disabled="ctrl.isRemoving(buy)"
           >
           <span class="fa fa-fw fa-trash"></span>
         </button>
