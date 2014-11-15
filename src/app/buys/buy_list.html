@@ -9,14 +9,12 @@
   <tbody>
     <tr ng-repeat="buy in ctrl.buys | orderBy:'-createdAt' track by buy.$id">
       <td class="text-center vertical-center">
-        <div class="row">
-          <a ng-href="/accounts/{{buy.buyerId}}">
-            {{ ctrl.buyers.$getRecord(buy.buyerId).name }}
-          </a>
-        </div>
-        <div class="row">
-          <span class="small text-muted">{{ ::buy.createdAt | date:'d.M.yyyy HH:mm' }}</span>
-        </div>
+        <a ng-href="/accounts/{{buy.buyerId}}">
+          {{ ctrl.buyers.$getRecord(buy.buyerId).name }}
+        </a>
+        <p class="h6 h6-minimal">
+          <small class="text-muted">{{ ::buy.createdAt | date:'d.M.yyyy HH:mm' }}</small>
+        </p>
       </td>
       <td class="text-center vertical-center">
         <div ng-repeat="(productId, amount) in buy.products">
@@ -34,8 +32,6 @@
           >
           <span class="fa fa-fw fa-shopping-cart"></span>
         </button>
-      </td>
-      <td class="text-center vertical-center">
         <button
           type="button"
           class="btn btn-danger"
