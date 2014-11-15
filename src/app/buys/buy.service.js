@@ -58,17 +58,19 @@ angular.module('kassa')
       }
       buy.createdAt = Firebase.ServerValue.TIMESTAMP;
 
-      return $firebase(accountCollectionFirebase.$ref().child(buy.buyerId)).$transaction(function(account){
-        updateAccount(buy, account, TYPE_CREATE);
-        return account;
-      }).then(function(){
-        return productCollectionFirebase.$transaction(function(products){
-          updateProducts(buy, products, TYPE_CREATE);
-          return products;
+      return firebase
+        .$push(buy)
+        .then(function(){
+          return $firebase(accountCollectionFirebase.$ref().child(buy.buyerId)).$transaction(function(account){
+            updateAccount(buy, account, TYPE_CREATE);
+            return account;
+          });
+        }).then(function(){
+          return productCollectionFirebase.$transaction(function(products){
+            updateProducts(buy, products, TYPE_CREATE);
+            return products;
+          });
         });
-      }).then(function(){
-        return firebase.$push(buy);
-      });
     },
     delete: function(buy){
       if (!buy.$id) {
@@ -78,17 +80,19 @@ angular.module('kassa')
         throw new Error('Tried to remove a buy that is too old');
       }
 
-      return $firebase(accountCollectionFirebase.$ref().child(buy.buyerId)).$transaction(function(account){
-        updateAccount(buy, account, TYPE_DELETE);
-        return account;
-      }).then(function(){
-        return productCollectionFirebase.$transaction(function(products){
-          updateProducts(buy, products, TYPE_DELETE);
-          return products;
+      return firebase
+        .$remove(buy.$id)
+        .then(function(){
+          return $firebase(accountCollectionFirebase.$ref().child(buy.buyerId)).$transaction(function(account){
+            updateAccount(buy, account, TYPE_DELETE);
+            return account;
+          });
+        }).then(function(){
+          return productCollectionFirebase.$transaction(function(products){
+            updateProducts(buy, products, TYPE_DELETE);
+            return products;
+          });
         });
-      }).then(function(){
-        return firebase.$remove(buy.$id);
-      });
     },
     canDelete: function(buy){
       return Date.now() - buy.createdAt < DELETE_TIME_THRESHOLD;
