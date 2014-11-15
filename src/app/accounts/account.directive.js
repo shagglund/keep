@@ -58,7 +58,7 @@ angular.module('kassa')
       this.accounts = $firebase(accountCollectionRef).$asArray();
       this._firebase = $firebase(accountRef);
       this.account = this._firebase.$asObject();
-      this.balanceChanges = $firebase(accountRef.child('/balanceChanges/')).$asArray();
+      this.balanceChanges = $firebase(new Firebase(FirebaseRootUrl + '/balanceChanges/' + $stateParams.id)).$asArray();
     } else {
       this._firebase = $firebase(accountCollectionRef);
       this.account = {};
