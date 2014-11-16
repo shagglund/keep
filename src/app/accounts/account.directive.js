@@ -5,10 +5,7 @@ angular.module('kassa')
   $q,
   $state,
   $stateParams,
-  $firebase,
-  $firebaseSimpleLogin,
-  Firebase,
-  FirebaseRootUrl,
+  Account,
   Message){
 
   var CREATE_SUCCESS_MSG = 'Account created successfully',
@@ -23,22 +20,9 @@ angular.module('kassa')
     var promise = null;
 
     if (create) {
-      account.createdAt = Firebase.ServerValue.TIMESTAMP;
-      account.updatedAt = Firebase.ServerValue.TIMESTAMP;
-      account.balance = 0;
-      account.buyCount = 0;
-      var authenticator = $firebaseSimpleLogin(new Firebase(FirebaseRootUrl));
-      //use default as a password placeholder until user is created -> resets password right after
-      promise = authenticator.$createUser(account.email, 'default').then(function(authData){
-        account.identifiers = {};
-        account.identifiers[authData.user.uid] = authData.user.email;
-        //reset and send a new password link to act as an auto generated password & email validation
-        authenticator.$sendPasswordResetEmail(authData.user.email);
-        return ctrl.accounts.$add(account);
-      });
+      promise = Account.create(account);
     } else {
-      account.updatedAt = Firebase.ServerValue.TIMESTAMP;
-      promise = account.$save();
+      promise = Account.update(account);
     }
 
     ctrl.saving = true;
@@ -54,9 +38,12 @@ angular.module('kassa')
 
   var accountCtrl = function(){
     if (angular.isDefined($stateParams.id)) {
-      this.accounts = $firebase(new Firebase(FirebaseRootUrl + '/accounts/')).$asArray();
-      this.account = $firebase(new Firebase(FirebaseRootUrl + '/accounts/' + $stateParams.id)).$asObject();
-      this.balanceChanges = $firebase(new Firebase(FirebaseRootUrl + '/balanceChanges/' + $stateParams.id)).$asArray();
+      var self = this;
+      this.accounts = Account.accounts;
+      this.accounts.$loaded(function(){
+        self.account = self.accounts.$getRecord($stateParams.id);
+        self.balanceChanges = Account.getBalanceChanges(self.account);
+      });
     } else {
       this.account = {};
     }
@@ -74,18 +61,10 @@ angular.module('kassa')
   };
 
   //Note: Only usable in update context
-  accountCtrl.prototype.changeBalance = function(balanceChanges, change){
+  accountCtrl.prototype.changeBalance = function(account, change){
     var self = this;
-    change.createdAt = Firebase.ServerValue.TIMESTAMP;
 
-    return balanceChanges
-      .$add(change)
-      .then(function(){
-        var account = self.account;
-        account.balance = account.balance + change.amount;
-        account.updatedAt = Firebase.ServerValue.TIMESTAMP;
-        account.$save();
-      })
+    return Account.changeBalance(account, change)
       .then(function(){
         self.change = {};
         Message.success(BALANCE_SUCCESS_MSG);
