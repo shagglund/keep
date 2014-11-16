@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('kassa')
-.directive('buyProductList', function($firebase, Firebase, FirebaseRootUrl, Basket){
+.directive('buyProductList', function(Product, Basket){
 
   var buyProductListCtrl = function(){
-    this.products = $firebase(new Firebase(FirebaseRootUrl + '/products/')).$asArray();
+    this.products = Product.products;
   };
 
   buyProductListCtrl.prototype.basket = Basket;

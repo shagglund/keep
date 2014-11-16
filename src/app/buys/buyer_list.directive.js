@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('kassa')
-.directive('buyerList', function($state, $firebase, Firebase, FirebaseRootUrl, Basket){
+.directive('buyerList', function($state, Account, Basket){
 
   var buyerListCtrl = function(){
-    this.buyers = $firebase(new Firebase(FirebaseRootUrl + '/accounts/')).$asArray();
+    this.buyers = Account.accounts;
   };
 
   buyerListCtrl.prototype.selectBuyer = function(buyer){

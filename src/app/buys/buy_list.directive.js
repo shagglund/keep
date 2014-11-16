@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('kassa')
-.directive('buyList', function($firebase, Firebase, FirebaseRootUrl, Buy){
+.directive('buyList', function(Buy, Account, Product){
   var buyListCtrl = function(){
-    this.buys = $firebase(new Firebase(FirebaseRootUrl + '/buys/').limitToLast(25)).$asArray();
-    this.buyers = $firebase(new Firebase(FirebaseRootUrl + '/accounts/')).$asArray();
-    this.products = $firebase(new Firebase(FirebaseRootUrl + '/products/')).$asArray();
+    this.buys = Buy.getLast(25);
+    this.buyers = Account.accounts;
+    this.products = Product.products;
   };
 
   buyListCtrl.prototype.canDelete = Buy.canDelete;

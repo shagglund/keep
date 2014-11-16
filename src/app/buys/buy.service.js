@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('kassa')
-.service('Buy', function($q, $firebase, Firebase, FirebaseRootUrl){
+.service('Buy', function($q, $firebase, Firebase, FirebaseRootUrl, Account, Product){
   var DELETE_TIME_THRESHOLD = 5*60*1000, //5 minutes
     TYPE_CREATE = 1,
     TYPE_DELETE = 2;
 
   var firebase = $firebase(new Firebase(FirebaseRootUrl + '/buys')),
-    products = $firebase(new Firebase(FirebaseRootUrl + '/products')).$asArray(),
-    accounts = $firebase(new Firebase(FirebaseRootUrl + '/accounts')).$asArray();
+    products = Product.products,
+    accounts = Account.accounts;
 
   function productCount(buy){
     return Object.keys(buy.products)
@@ -100,6 +100,9 @@ angular.module('kassa')
     },
     getResolvedProduct: function(productId){
       return products.$getRecord(productId);
+    },
+    getLast: function(limit){
+      return $firebase(new Firebase(FirebaseRootUrl + '/buys/').limitToLast(limit)).$asArray();
     },
     total: total
 
