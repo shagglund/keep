@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kassa')
-.directive('product', function($firebase, $state, $stateParams, Firebase, FirebaseRootUrl, Message){
+.directive('product', function($state, $stateParams, Product, Message){
   var CREATE_SUCCESS_MSG = 'Product created successfully',
     UPDATE_SUCCESS_MSG = 'Product updated successfully',
     CREATE_FAIL_MSG = 'Product create failed: ',
@@ -11,13 +11,9 @@ angular.module('kassa')
     var promise = null;
 
     if (create) {
-      product.createdAt = Firebase.ServerValue.TIMESTAMP;
-      product.updatedAt = Firebase.ServerValue.TIMESTAMP;
-      product.buyCount = 0;
-      promise = ctrl._firebase.$push(product);
+      promise = Product.create(product);
     } else {
-      product.updatedAt = Firebase.ServerValue.TIMESTAMP;
-      promise = product.$save();
+      promise = Product.update(product);
     }
     ctrl.saving = true;
 
@@ -31,10 +27,12 @@ angular.module('kassa')
   }
 
   var productCtrl = function(){
+    var self = this;
     if (angular.isDefined($stateParams.id)) {
-      this.product = $firebase(new Firebase(FirebaseRootUrl + '/products/' + $stateParams.id)).$asObject();
+      Product.products.$loaded(function(){
+        self.product = Product.products.$getRecord($stateParams.id);
+      });
     } else {
-      this._firebase = $firebase(new Firebase(FirebaseRootUrl + '/products'));
       this.product = {};
     }
   };

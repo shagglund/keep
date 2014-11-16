@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('kassa')
-.directive('productList', function(Firebase, FirebaseRootUrl, $firebase){
+.directive('productList', function(Product){
   var productListCtrl = function(){
-    this.products = $firebase(new Firebase(FirebaseRootUrl + '/products')).$asArray();
+    this.products = Product.products;
   };
 
   return {
