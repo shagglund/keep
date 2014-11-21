@@ -28,9 +28,9 @@ angular.module('kassa')
 
   var productCtrl = function(){
     var self = this;
-    if (angular.isDefined($stateParams.id)) {
+    if (angular.isDefined($stateParams.productId)) {
       Product.products.$loaded(function(){
-        self.product = Product.products.$getRecord($stateParams.id);
+        self.product = Product.products.$getRecord($stateParams.productId);
       });
     } else {
       this.product = {};

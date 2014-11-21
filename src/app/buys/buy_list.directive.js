@@ -1,11 +1,15 @@
 'use strict';
 
 angular.module('kassa')
-.directive('buyList', function(Buy, Account, Product){
+.directive('buyList', function(Buy, Account, Product, $stateParams){
   var buyListCtrl = function(){
-    this.buys = Buy.getLast(25);
     this.buyers = Account.accounts;
     this.products = Product.products;
+    if ($stateParams.accountId) {
+      this.buys = Buy.getLastForAccount(25, $stateParams.accountId);
+    } else {
+      this.buys = Buy.getLast(25);
+    }
   };
 
   buyListCtrl.prototype.canDelete = Buy.canDelete;

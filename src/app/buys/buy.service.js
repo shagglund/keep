@@ -10,6 +10,10 @@ angular.module('kassa')
     products = Product.products,
     accounts = Account.accounts;
 
+  function id(obj){
+    return angular.isObject(obj) ? obj.$id : obj;
+  }
+
   function productCount(buy){
     return Object.keys(buy.products)
             .map(function(key){ return buy.products[key]; })
@@ -53,7 +57,7 @@ angular.module('kassa')
 
   return {
     create: function(buy){
-      if (buy.$id) {
+      if (id(buy)) {
         throw new Error('Tried to persist buy that was already created');
       }
       var account = accounts.$getRecord(buy.buyerId);
@@ -62,17 +66,16 @@ angular.module('kassa')
       }
 
       buy.createdAt = Firebase.ServerValue.TIMESTAMP;
+      var promises = [
+        firebase.$push(buy),
+        updateAccount(buy, account, TYPE_CREATE),
+        updateProducts(buy, products, TYPE_CREATE)
+      ];
 
-      return firebase
-        .$push(buy)
-        .then(function(){
-          updateAccount(buy, account, TYPE_CREATE);
-        }).then(function(){
-          updateProducts(buy, products, TYPE_CREATE);
-        });
+      return $q.when(promises).then(function(resolved){ return resolved[0]; });
     },
     delete: function(buy){
-      if (!buy.$id) {
+      if (!id(buy)) {
         throw new Error('Tried to remove an unsaved buy');
       }
       if (!this.canDelete(buy)){
@@ -84,13 +87,13 @@ angular.module('kassa')
         throw new Error('Could not find account: ' + buy.buyerId);
       }
 
-      return firebase
-        .$remove(buy.$id)
-        .then(function(){
-          updateAccount(buy, account, TYPE_DELETE);
-        }).then(function(){
-          updateProducts(buy, products, TYPE_DELETE);
-        });
+      var promises = [
+        firebase.$remove(id(buy)),
+        updateAccount(buy, account, TYPE_DELETE),
+        updateProducts(buy, products, TYPE_DELETE)
+      ];
+
+      return $q.when(promises).then(function(resolved){ return resolved[0]; });
     },
     canDelete: function(buy){
       return Date.now() - buy.createdAt < DELETE_TIME_THRESHOLD;
@@ -102,7 +105,16 @@ angular.module('kassa')
       return products.$getRecord(productId);
     },
     getLast: function(limit){
-      return $firebase(new Firebase(FirebaseRootUrl + '/buys/').limitToLast(limit)).$asArray();
+      var firebaseQuery = new Firebase(FirebaseRootUrl + '/buys/')
+        .limitToLast(limit);
+      return $firebase(firebaseQuery).$asArray();
+    },
+    getLastForAccount: function(limit, account){
+      var firebaseQuery = new Firebase(FirebaseRootUrl + '/buys/')
+        .orderByChild('buyerId')
+        .equalTo(id(account))
+        .limitToLast(limit);
+      return $firebase(firebaseQuery).$asArray();
     },
     total: total
 

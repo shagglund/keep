@@ -48,7 +48,7 @@ angular.module('kassa', [
       }
     })
     .state('root.products.edit', {
-      url: '/:id',
+      url: '/:productId',
       views: {
         '@root' : {
           template: '<product><product>'
@@ -72,10 +72,16 @@ angular.module('kassa', [
       }
     })
     .state('root.accounts.edit', {
-      url: '/:id',
+      url: '/:accountId',
       views: {
         '@root' : {
+          templateUrl: '/app/main/two_column_content.html'
+        },
+        '@root.accounts.edit' : {
           template: '<account><account>'
+        },
+        'sidelist@root.accounts.edit': {
+          template: '<buy-list></buy-list>'
         }
       }
     })
@@ -83,7 +89,7 @@ angular.module('kassa', [
       url: '/buy',
       views: {
         '@root' : {
-          templateUrl: '/app/buys/content.html'
+          templateUrl: '/app/main/two_column_content.html'
         },
         '@root.buy' : {
           template: '<buyer-list></buyer-list>'
