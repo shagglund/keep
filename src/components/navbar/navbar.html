@@ -6,7 +6,7 @@
     </a>
   </div>
 
-  <div class="collapse navbar-collapse">
+  <div class="col-xs-12 visible-xs">
     <ul class="nav navbar-nav">
       <li ui-sref-active="active"><a ui-sref="root.products">Products</a></li>
       <li ui-sref-active="active"><a ui-sref="root.accounts">Accounts</a></li>
@@ -18,4 +18,15 @@
       </li>
     </ul>
   </div>
+
+  <ul class="nav navbar-nav hidden-xs">
+    <li ui-sref-active="active"><a ui-sref="root.products">Products</a></li>
+    <li ui-sref-active="active"><a ui-sref="root.accounts">Accounts</a></li>
+  </ul>
+
+  <ul class="nav navbar-nav navbar-right hidden-xs">
+    <li>
+      <logout></logout>
+    </li>
+  </ul>
 </nav>

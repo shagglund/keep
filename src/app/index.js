@@ -51,7 +51,12 @@ angular.module('kassa', [
       url: '/:productId',
       views: {
         '@root' : {
+          templateUrl: '/app/main/two_column_content.html'
+        },
+        '@root.products.edit' : {
           template: '<product><product>'
+        },
+        '@sidelist.products.edit' : {
         }
       }
     })
