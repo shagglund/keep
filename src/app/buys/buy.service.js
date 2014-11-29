@@ -1,14 +1,23 @@
 'use strict';
 
 angular.module('kassa')
-.service('Buy', function($q, $firebase, Firebase, FirebaseRootUrl, Account, Product){
+.service('Buy', function($q, $firebase, Firebase, FirebaseRootUrl, Authentication, Account, Product){
   var DELETE_TIME_THRESHOLD = 5*60*1000, //5 minutes
     TYPE_CREATE = 1,
-    TYPE_DELETE = 2;
+    TYPE_DELETE = 2,
+    firebase = null,
+    products = null,
+    accounts = null;
 
-  var firebase = $firebase(new Firebase(FirebaseRootUrl + '/buys')),
-    products = Product.products,
-    accounts = Account.accounts;
+  Authentication.handleAuth(function(authData){
+    if (authData) {
+      firebase = $firebase(new Firebase(FirebaseRootUrl + '/buys'));
+    } else {
+      firebase = null;
+    }
+  });
+  Account.onAccounts(function(accs){ accounts = accs; });
+  Product.onProducts(function(prods){ products = prods; });
 
   function id(obj){
     return angular.isObject(obj) ? obj.$id : obj;

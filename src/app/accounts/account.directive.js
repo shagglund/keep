@@ -39,9 +39,9 @@ angular.module('kassa')
   var accountCtrl = function(){
     if (angular.isDefined($stateParams.accountId)) {
       var self = this;
-      this.accounts = Account.accounts;
-      this.accounts.$loaded(function(){
-        self.account = self.accounts.$getRecord($stateParams.accountId);
+      Account.onAccounts(function(accounts){
+        self.accounts = accounts;
+        self.account = accounts.$getRecord($stateParams.accountId);
         self.balanceChanges = Account.getBalanceChanges(self.account);
       });
     } else {

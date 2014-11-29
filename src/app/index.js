@@ -29,13 +29,7 @@ angular.module('kassa', [
     .state('root', {
       url: '',
       abstract: true,
-      templateUrl: 'app/main/main.html',
-      resolve: {
-        currentUser: function($rootScope, $firebaseSimpleLogin, Firebase, FirebaseRootUrl){
-          $rootScope.currentUser = $firebaseSimpleLogin(new Firebase(FirebaseRootUrl)).$getCurrentUser();
-          return $rootScope.currentUser;
-        }
-      }
+      templateUrl: 'app/main/main.html'
     })
     .state('root.products', {
       url: '/products',

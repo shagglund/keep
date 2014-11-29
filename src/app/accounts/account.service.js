@@ -3,15 +3,15 @@
 angular.module('kassa')
 .service('Account', function(
   $firebase,
-  $firebaseSimpleLogin,
+  Authentication,
   Firebase,
   FirebaseRootUrl){
 
-  var accounts = $firebase(new Firebase(FirebaseRootUrl + '/accounts/')).$asArray(),
-    authenticator = $firebaseSimpleLogin(new Firebase(FirebaseRootUrl));
+  var accounts = null,
+    accountChangeCallbacks = [];
 
-  return {
-    accounts: accounts,
+  var service = {
+    current: null,
     create: function(account){
       account.createdAt = Firebase.ServerValue.TIMESTAMP;
       account.updatedAt = Firebase.ServerValue.TIMESTAMP;
@@ -19,11 +19,11 @@ angular.module('kassa')
       account.buyCount = 0;
 
       //use default as a password placeholder until user is created -> resets password right after
-      return authenticator.$createUser(account.email, 'default').then(function(authData){
+      return Authentication.$createUser(account.email, 'default').then(function(authData){
         account.identifiers = {};
         account.identifiers[authData.user.uid] = authData.user.email;
         //reset and send a new password link to act as an auto generated password & email validation
-        authenticator.$sendPasswordResetEmail(authData.user.email);
+        Authentication.$sendPasswordResetEmail(authData.user.email);
         return accounts.$add(account);
       });
     },
@@ -44,6 +44,35 @@ angular.module('kassa')
           account.updatedAt = Firebase.ServerValue.TIMESTAMP;
           accounts.$save(account);
         });
+    },
+    onAccounts: function(cb){
+      accountChangeCallbacks.push(cb);
+      if (accounts) {
+        cb(accounts);
+      }
+      return function(){
+        accountChangeCallbacks.splice(accountChangeCallbacks.indexOf(cb),1);
+      };
     }
   };
+
+  Authentication.handleAuth(function(authData){
+    if (authData) {
+      accounts = $firebase(new Firebase(FirebaseRootUrl + '/accounts/')).$asArray();
+      accounts.$loaded(function(resolvedAccounts){
+        angular.forEach(resolvedAccounts, function(account){
+          if (account.identifiers && account.identifiers[authData.uid]) {
+            service.current = account;
+          }
+        });
+        //notify accounts changed
+        angular.forEach(accountChangeCallbacks, function(cb){ cb(accounts); });
+      });
+      service.accounts = accounts;
+    } else {
+      service.current = null;
+    }
+  });
+
+  return service;
 });

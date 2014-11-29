@@ -3,7 +3,10 @@
 angular.module('kassa')
 .directive('accountList', function(Account){
   var accountListCtrl = function(){
-    this.accounts = Account.accounts;
+    var self = this;
+    Account.onAccounts(function(accounts){
+      self.accounts = accounts;
+    });
   };
 
   return {

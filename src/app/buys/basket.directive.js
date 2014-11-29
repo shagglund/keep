@@ -4,8 +4,11 @@ angular.module('kassa')
 .directive('basket', function($state, Account, Basket, Message){
 
   var basketCtrl = function(){
-    this.accounts = Account.accounts;
+    var self = this;
     this.saving = false;
+    Account.onAccounts(function(accounts){
+      self.accounts = accounts;
+    });
   };
 
   basketCtrl.prototype.basket = Basket;

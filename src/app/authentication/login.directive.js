@@ -1,16 +1,14 @@
 'use strict';
 
 angular.module('kassa')
-.directive('login', function($location, $firebaseSimpleLogin, Firebase, FirebaseRootUrl, Message){
-  var authenticator = $firebaseSimpleLogin(new Firebase(FirebaseRootUrl));
-
+.directive('login', function($location, Authentication, Message){
   return {
     scope: {},
     templateUrl: '/app/authentication/login.html',
     link: function($scope){
       $scope.login = function(email, password){
         $scope.sending = true;
-        return authenticator.$login('password', {
+        return Authentication.$authWithPassword({
           email: email,
           password: password
         }).then(function(){

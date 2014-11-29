@@ -3,8 +3,13 @@
 angular.module('kassa')
 .directive('buyList', function(Buy, Account, Product, $stateParams){
   var buyListCtrl = function(){
-    this.buyers = Account.accounts;
-    this.products = Product.products;
+    var self = this;
+    Account.onAccounts(function(accounts){
+      self.buyers = accounts;
+    });
+    Product.onProducts(function(products){
+      self.products = products;
+    });
     if ($stateParams.accountId) {
       this.buys = Buy.getLastForAccount(25, $stateParams.accountId);
     } else {

@@ -9,11 +9,10 @@
     "angular-ui-router": "0.2.x",
     "bootstrap-sass-official": "3.2.x",
     "firebase": "~2.0.2",
-    "angularfire": "~0.8.2",
+    "angularfire": "~0.9.0",
     "angular-smart-table": "~1.4.4",
     "components-font-awesome": "~4.2.0",
     "angular-gravatar": "~0.2.3",
-    "firebase-simple-login": "~1.6.4",
     "bootstrap-material-design": "~0.1.6"
   },
   "devDependencies": {

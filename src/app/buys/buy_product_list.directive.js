@@ -4,7 +4,10 @@ angular.module('kassa')
 .directive('buyProductList', function(Product, Basket){
 
   var buyProductListCtrl = function(){
-    this.products = Product.products;
+    var self = this;
+    Product.onProducts(function(products){
+      self.products = products;
+    });
   };
 
   buyProductListCtrl.prototype.basket = Basket;
