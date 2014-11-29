@@ -14,3 +14,18 @@
   margin-top: 0px;
   margin-bottom: 0px;
 }
+
+.table-unbordered {
+  > thead > tr > th {
+    border-bottom: none;
+  }
+
+  > thead > tr > th,
+  > thead > tr > td,
+  > tbody > tr > th,
+  > tbody > tr > td,
+  > tfoot > tr > th,
+  > tfoot > tr > td {
+    border-top: none;
+  }
+}

@@ -1,20 +1,34 @@
 <h3 class="text-center">Products</h3>
-<table class="table table-striped table-hover" st-table="ctrl.products">
+<table
+  class="table table-hover table-unbordered"
+  st-table="productCollection"
+  st-safe-src="ctrl.products"
+  >
   <thead>
     <tr>
-      <th class="text-center" st-sort="name" st-skip-natural="true">Name</th>
+      <th colspan=4>
+        <div class="input-group">
+          <div class="input-group-addon">
+            <span class="fa fa-fw fa-search"></span>
+          </div>
+          <input
+            class="input-sm form-control"
+            type="search"
+            placeholder="Filter by name"
+            st-search="'name'"
+            st-delay=100
+            />
+        </div>
+      </th>
+    </tr>
+    <tr>
+      <th class="text-center" st-sort="name"  st-skip-natural="true">Name</th>
       <th class="text-center" st-sort="price" st-skip-natural="true">Price</th>
       <th colspan=2></th>
     </tr>
-    <tr>
-      <th>
-        <input st-search="'name'" placeholder="Name" class="input-sm form-control" type="search" st-delay=100/>
-      </th>
-      <th colspan=3></th>
-    </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="product in ctrl.products | filter:{ available: true } track by product.$id">
+    <tr ng-repeat="product in productCollection | filter:{ available: true } track by product.$id">
       <td class="col-xs-4 text-center vertical-center">
         <button
           class="btn-block btn-link"
@@ -30,7 +44,7 @@
       <td class="col-xs-4 col-sm-2 text-center vertical-center">
         <input
           type="number"
-          class="form-control input-sm"
+          class="form-control input-sm text-center"
           min=1
           step=1
           ng-show="ctrl.basket.products[product.$id] !== undefined"
@@ -41,10 +55,9 @@
         <button
           class="btn-block btn-link"
           ng-show="ctrl.basket.products[product.$id] !== undefined"
-          ng-click="ctrl.remove(ctrl.basket.products, product.$id)"
+          ng-click="ctrl.basket.removeProduct(product)"
           >
           <span class="fa fa-fw fa-remove"></span>
-          <span> Remove </span>
         </button>
       </td>
     </tr>

@@ -1,41 +1,51 @@
 <h3 class="text-center">Basket</h3>
 <form class="form-horizontal" name="buyForm">
   <div class="form-group">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th class="text-center">Product</th>
-          <th class="text-center">Amount</th>
-          <th class="text-center">Price</th>
-        </tr>
-      </thead>
+    <table class="table table-unbordered">
       <tbody>
         <tr ng-repeat="(productId, amount) in ctrl.basket.products">
-          <td class="text-center vertical-center">
+          <td class="col-xs-5 text-center vertical-center">
             {{ ctrl.basket.getResolvedProduct(productId).name }}
           </td>
-          <td class="text-center vertical-center">
-            {{ amount | number }}
+          <td class="col-xs-3 text-center vertical-center">
+            <input
+              type="number"
+              class="form-control input-sm text-center"
+              min=1
+              step=1
+              ng-model="ctrl.basket.products[productId]"
+              >
           </td>
-          <td class="text-center vertical-center">
+          <td class="col-xs-1 text-center vertical-center">
+            <button
+              class="btn-block btn-link"
+              ng-click="ctrl.basket.removeProduct(productId)"
+              >
+              <span class="fa fa-fw fa-remove"></span>
+            </button>
+          </td>
+          <td class="col-xs-3 text-center vertical-center">
             {{ ctrl.basket.getResolvedProduct(productId).price * amount | currency }}
           </td>
         </tr>
         <tr ng-hide="ctrl.basket.isEmpty()">
-          <td></td>
-          <td class="text-right vertical-center">
+          <td colspan=3 class="text-right vertical-center">
             <strong>Total</strong>
           </td>
           <td class="text-center vertical-center">{{ ctrl.basket.total() | currency }}</td>
         </tr>
         <tr ng-show="ctrl.basket.isEmpty()">
-          <td colspan=3 class="text-center vertical-center">No selected products</td>
+          <td colspan=4 class="text-center vertical-center">No selected products</td>
         </tr>
         <tr>
-          <td class="text-center vertical-center">
+          <td colspan=4>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-xs-5 text-center vertical-center">
             <strong>Buyer</strong>
           </td>
-          <td class="text-center vertical-center" colspan=2>
+          <td class="col-xs-4 text-center vertical-center" colspan=2>
             <select
               class="form-control"
               required=true
@@ -45,24 +55,26 @@
               <option value="">Select Buyer</option>
             </select>
           </td>
+          <td class="col-xs-3"></td>
+        </tr>
+        <tr>
+          <td colspan=4>
+          </td>
         </tr>
         <tr ng-show="ctrl.basket.buyerId">
-          <td></td>
-          <td class="text-right vertical-center">
+          <td class="text-right vertical-center" colspan=3>
             <strong>Balance now</strong>
           </td>
           <td class="text-center vertical-center">{{ ctrl.basket.getResolvedBuyer().balance | currency }}</td>
         </tr>
         <tr ng-show="ctrl.basket.buyerId && !ctrl.basket.isEmpty()">
-          <td></td>
-          <td class="text-right vertical-center">
+          <td class="text-right vertical-center" colspan=3>
             <strong>Purchase</strong>
           </td>
           <td class="text-center vertical-center">{{ -ctrl.basket.total() | currency }}</td>
         </tr>
         <tr ng-show="ctrl.basket.buyerId && !ctrl.basket.isEmpty()">
-          <td></td>
-          <td class="text-right vertical-center">
+          <td class="text-right vertical-center" colspan=3>
             <strong>Balance after</strong>
           </td>
           <td class="text-center vertical-center">{{ ctrl.basket.getNewBalance() | currency }}</td>
@@ -77,6 +89,7 @@
           type="button"
           class="btn btn-danger"
           ng-click="ctrl.basket.reset()"
+          ng-disabled="ctrl.saving || (ctrl.basket.buyerId === null && ctrl.basket.isEmpty())"
           >
           <span class="fa fa-fw fa-trash"></span>
           <span> Empty </span>

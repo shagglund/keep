@@ -1,62 +1,105 @@
 <div class="row">
   <div class="col-xs-12">
-    <a href="/accounts/new">
-      <span class="fa fa-fw fa-plus"></span>
-      <span> New Account </span>
-    </a>
-    <table class="table table-striped table-hover" st-table="accountCollection" st-safe-src="ctrl.accounts">
-      <thead>
-        <tr>
-          <th st-sort="name" st-skip-natural="true">Name</th>
-          <th class="text-center" st-sort="email" st-skip-natural="true">Email</th>
-          <th class="text-center" st-sort="available" st-skip-natural="true">Available</th>
-          <th class="text-center" st-sort="balance" st-skip-natural="true">Balance</th>
-          <th class="text-center" st-sort="buyCount" st-skip-natural="true">Bought</th>
-          <th class="text-center" st-sort="createdAt" st-skip-natural="true">Created At</th>
-          <th class="text-center" st-sort="updatedAt" st-skip-natural="true">Updated At</th>
-          <th class="text-center" st-sort="lastBuyAt" st-skip-natural="true">Last Buy At</th>
-        </tr>
-        <tr>
-          <th>
-            <input st-search="'name'" placeholder="Name" class="input-sm form-control" type="search" st-delay=100/>
-          </th>
-          <th>
-            <input st-search="'email'" placeholder="Email" class="input-sm form-control" type="search" st-delay=100/>
-          </th>
-          <th colspan=5></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="account in accountCollection track by account.$id">
-          <td class="vertical-center">
-            <a class="btn-block btn-link" ng-href="/accounts/{{ account.$id }}">
-              {{ account.name }}
-            </a>
-          </td>
-          <td class="text-center vertical-center">
-            {{ account.email }}
-          </td>
-          <td class="text-center vertical-center">
-            <span class="fa fa-fw fa-check text-success" ng-if="account.available"></span>
-            <span class="fa fa-fw fa-times text-danger" ng-if="!account.available"></span>
-          </td>
-          <td class="text-center vertical-center">
-            {{ account.balance | currency }}
-          </td>
-          <td class="text-center vertical-center">
-            {{ account.buyCount | number }}
-          </td>
-          <td class="text-center vertical-center">
-            {{ account.createdAt | date:'longDate' }}
-          </td>
-          <td class="text-center vertical-center">
-            {{ account.updatedAt | date:'longDate' }}
-          </td>
-          <td class="text-center vertical-center">
-            {{ account.lastBuyAt | date:'longDate' }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="panel">
+      <div class="panel-body">
+        <a href="/accounts/new">
+          <span class="fa fa-fw fa-plus"></span>
+          <span> New Account </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel">
+      <div class="panel-body">
+        <table
+          class="table table-hover table-unbordered"
+          st-table="accountCollection"
+          st-safe-src="ctrl.accounts"
+          >
+          <thead>
+            <tr>
+              <th></th>
+              <th>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="fa fa-fw fa-search"></span>
+                  </div>
+                  <input
+                    class="input-sm form-control"
+                    type="search"
+                    placeholder="Name"
+                    st-search="'name'"
+                    st-delay=100
+                    />
+                </div>
+              </th>
+              <th>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <span class="fa fa-fw fa-search"></span>
+                  </div>
+                  <input
+                    class="input-sm form-control"
+                    type="search"
+                    placeholder="Email"
+                    st-search="'email'"
+                    st-delay=100
+                    />
+                </div>
+              </th>
+              <th colspan=6></th>
+            </tr>
+            <tr>
+              <th></th>
+              <th st-sort-default     st-sort="name"      st-skip-natural="true"> Name </th>
+              <th class="text-center" st-sort="email"     st-skip-natural="true"> Email </th>
+              <th class="text-center" st-sort="available" st-skip-natural="true"> Available </th>
+              <th class="text-center" st-sort="balance"   st-skip-natural="true"> Balance </th>
+              <th class="text-center" st-sort="buyCount"  st-skip-natural="true"> Bought </th>
+              <th class="text-center" st-sort="createdAt" st-skip-natural="true"> Created At </th>
+              <th class="text-center" st-sort="updatedAt" st-skip-natural="true"> Updated At </th>
+              <th class="text-center" st-sort="lastBuyAt" st-skip-natural="true"> Last Buy At </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="account in accountCollection track by account.$id">
+              <td class="vertical-center">
+                <img class="img-circle" gravatar-src-once="account.email" />
+              </td>
+              <td class="vertical-center">
+                <a class="btn-block btn-link" ng-href="/accounts/{{ account.$id }}">
+                  {{ account.name }}
+                </a>
+              </td>
+              <td class="text-center vertical-center">
+                {{ account.email }}
+              </td>
+              <td class="text-center vertical-center">
+                <span class="fa fa-fw fa-check text-success"  ng-if="account.available"></span>
+                <span class="fa fa-fw fa-times text-danger"   ng-if="!account.available"></span>
+              </td>
+              <td class="text-center vertical-center">
+                {{ account.balance | currency }}
+              </td>
+              <td class="text-center vertical-center">
+                {{ account.buyCount | number }}
+              </td>
+              <td class="text-center vertical-center">
+                {{ account.createdAt | date:'longDate' }}
+              </td>
+              <td class="text-center vertical-center">
+                {{ account.updatedAt | date:'longDate' }}
+              </td>
+              <td class="text-center vertical-center">
+                {{ account.lastBuyAt | date:'longDate' }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

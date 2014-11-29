@@ -1,18 +1,31 @@
 <h3 class="text-center">Accounts</h3>
-<table class="table table-striped table-hover" st-table="buyerCollection" st-safe-src="ctrl.buyers">
+<table
+  class="table table-hover table-unbordered"
+  st-table="buyerCollection"
+  st-safe-src="ctrl.buyers"
+  >
   <thead>
     <tr>
-      <th></th>
-      <th class="text-center" st-sort="name" st-skip-natural="true">Name</th>
-      <th class="text-center" st-sort="balance" st-skip-natural="true">Balance</th>
-      <th class="text-center" st-sort="buyCount" st-skip-natural="true">Bought</th>
+      <th colspan=4>
+        <div class="input-group">
+          <div class="input-group-addon">
+            <span class="fa fa-fw fa-search"></span>
+          </div>
+          <input
+            class="input-sm form-control"
+            type="search"
+            placeholder="Filter by name"
+            st-search="'name'"
+            st-delay=100
+            />
+        </div>
+      </th>
     </tr>
     <tr>
       <th></th>
-      <th>
-        <input st-search="'name'" placeholder="Name" class="input-sm form-control" type="search" st-delay=100/>
-      </th>
-      <th colspan=2></th>
+      <th class="text-center" st-sort="name"      st-skip-natural="true" st-sort-default>Name</th>
+      <th class="text-center" st-sort="balance"   st-skip-natural="true">Balance</th>
+      <th class="text-center" st-sort="buyCount"  st-skip-natural="true">Bought</th>
     </tr>
   </thead>
   <tbody>
@@ -22,7 +35,7 @@
       ng-click="ctrl.selectBuyer(account)"
       >
       <td class="vertical-center">
-        <img gravatar-src-once="account.email" />
+        <img class="img-circle" gravatar-src-once="account.email" />
       </td>
       <td class="vertical-center">
         <button class="btn-block btn-link">

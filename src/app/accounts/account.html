@@ -24,21 +24,24 @@
       </div>
       <div class="form-group">
         <label class="col-xs-12 col-sm-2 control-label"> Available </label>
-        <div class="col-xs-12 col-sm-10 btn-group">
-          <button
-            type="button"
-            class="btn"
-            ng-click="ctrl.account.available=true; accountForm.$setDirty()"
-            ng-disabled="ctrl.account.available"
-            ng-class="{'btn-success active': ctrl.account.available, 'btn-default': !ctrl.account.available}"
-            > Yes </button>
-          <button
-            type="button"
-            class="btn"
-            ng-click="ctrl.account.available=false; accountForm.$setDirty()"
-            ng-disabled="!ctrl.account.available"
-            ng-class="{'btn-danger active': !ctrl.account.available, 'btn-default': ctrl.account.available}"
-            > No </button>
+        <div class="col-xs-12 col-sm-10">
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn"
+              ng-click="ctrl.account.available=true; accountForm.$setDirty()"
+              ng-disabled="ctrl.account.available"
+              ng-class="{'btn-success active': ctrl.account.available, 'btn-default': !ctrl.account.available}"
+              > Yes </button>
+            <button
+              type="button"
+              class="btn"
+              ng-click="ctrl.account.available=false; accountForm.$setDirty()"
+              ng-disabled="!ctrl.account.available"
+              ng-class="{'btn-danger active': !ctrl.account.available, 'btn-default': ctrl.account.available}"
+              > No </button>
+
+          </div>
         </div>
       </div>
       <div class="form-group">
@@ -57,6 +60,7 @@
         </div>
       </div>
     </form>
+    <hr>
     <form class="form-horizontal" name="balanceForm" ng-if="ctrl.account.$id">
       <div class="form-group">
         <div class="col-xs-12 col-md-10 col-md-offset-2">
@@ -104,6 +108,7 @@
         </div>
       </div>
     </form>
+    <hr>
     <h3 class="text-center">Balance Changes</h3>
     <table class="table" st-table="ctrl.balanceChanges" ng-if="ctrl.account.$id">
       <thead>

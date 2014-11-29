@@ -9,10 +9,6 @@ angular.module('kassa')
 
   buyProductListCtrl.prototype.basket = Basket;
 
-  buyProductListCtrl.prototype.remove = function(obj, property){
-    delete obj[property];
-  };
-
   return {
     scope: {},
     templateUrl: '/app/buys/buy_product_list.html',

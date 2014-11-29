@@ -6,6 +6,10 @@ angular.module('kassa')
     return account.balance - total;
   }
 
+  function id(obj){
+    return angular.isObject(obj) ? obj.$id : obj;
+  }
+
   return {
     buyerId: null,
     products: {},
@@ -32,7 +36,9 @@ angular.module('kassa')
       if (this.buyerId && !this.isEmpty()){
         return calculateNewBalance(this.getResolvedBuyer(), this.total());
       }
+    },
+    removeProduct: function(productOrId){
+      delete this.products[id(productOrId)];
     }
-
   };
 });

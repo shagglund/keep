@@ -30,6 +30,12 @@ angular.module('kassa', [
       url: '',
       abstract: true,
       templateUrl: 'app/main/main.html',
+      resolve: {
+        currentUser: function($rootScope, $firebaseSimpleLogin, Firebase, FirebaseRootUrl){
+          $rootScope.currentUser = $firebaseSimpleLogin(new Firebase(FirebaseRootUrl)).$getCurrentUser();
+          return $rootScope.currentUser;
+        }
+      }
     })
     .state('root.products', {
       url: '/products',
