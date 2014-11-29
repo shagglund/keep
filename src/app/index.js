@@ -43,6 +43,9 @@ angular.module('kassa', [
       url: '/new',
       views: {
         '@root' : {
+          templateUrl: '/app/main/single_column_content.html'
+        },
+        '@root.products.new' : {
           template: '<product><product>'
         }
       }
@@ -72,6 +75,9 @@ angular.module('kassa', [
       url: '/new',
       views: {
         '@root' : {
+          templateUrl: '/app/main/single_column_content.html'
+        },
+        '@root.accounts.new' : {
           template: '<account><account>'
         }
       }

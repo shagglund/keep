@@ -25,21 +25,23 @@
       </div>
       <div class="form-group">
         <label class="col-xs-12 col-sm-2 control-label"> Available </label>
-        <div class="col-xs-12 col-sm-10 btn-group">
-          <button
-            type="button"
-            class="btn"
-            ng-click="ctrl.product.available=true; productForm.$setDirty()"
-            ng-disabled="ctrl.product.available"
-            ng-class="{'btn-success active': ctrl.product.available, 'btn-default': !ctrl.product.available}"
-            > Yes </button>
-          <button
-            type="button"
-            class="btn"
-            ng-click="ctrl.product.available=false; productForm.$setDirty()"
-            ng-disabled="!ctrl.product.available"
-            ng-class="{'btn-danger active': !ctrl.product.available, 'btn-default': ctrl.product.available}"
-          > No </button>
+        <div class="col-xs-12 col-sm-10">
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn"
+              ng-click="ctrl.product.available=true; productForm.$setDirty()"
+              ng-disabled="ctrl.product.available"
+              ng-class="{'btn-success active': ctrl.product.available, 'btn-default': !ctrl.product.available}"
+              > Yes </button>
+            <button
+              type="button"
+              class="btn"
+              ng-click="ctrl.product.available=false; productForm.$setDirty()"
+              ng-disabled="!ctrl.product.available"
+              ng-class="{'btn-danger active': !ctrl.product.available, 'btn-default': ctrl.product.available}"
+            > No </button>
+          </div>
         </div>
       </div>
       <div class="form-group">
