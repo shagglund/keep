@@ -1,14 +1,10 @@
 <h3 class="text-center">Buys</h3>
 <table class="table table-hover table-unbordered" ng-if="ctrl.buys.length > 0">
-  <thead>
-    <tr>
-      <th class="text-center">Name</th>
-      <th class="text-center">Products</th>
-      <th></th>
-    </tr>
-  </thead>
   <tbody>
     <tr ng-repeat="buy in ctrl.buys | orderBy:'-createdAt' track by buy.$id">
+      <td class="text-center vertical-center" ng-if="showAvatar">
+        <img class="img-circle" gravatar-src-once="ctrl.buyers.$getRecord(buy.buyerId).email" />
+      </td>
       <td class="text-center vertical-center">
         <a ng-href="/accounts/{{buy.buyerId}}">
           {{ ctrl.buyers.$getRecord(buy.buyerId).name }}

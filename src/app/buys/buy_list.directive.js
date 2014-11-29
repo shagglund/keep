@@ -28,6 +28,9 @@ angular.module('kassa')
     scope: {},
     templateUrl: '/app/buys/buy_list.html',
     controller: buyListCtrl,
-    controllerAs: 'ctrl'
+    controllerAs: 'ctrl',
+    link: function(scope){
+      scope.showAvatar = true;
+    }
   };
 });
