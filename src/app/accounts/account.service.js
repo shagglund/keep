@@ -32,7 +32,11 @@ angular.module('kassa')
       return accounts.$save(account);
     },
     getBalanceChanges: function(account){
-      return $firebase(new Firebase(FirebaseRootUrl + '/balanceChanges/' + account.$id)).$asArray();
+      if (account) {
+        return $firebase(new Firebase(FirebaseRootUrl + '/balanceChanges/' + account.$id)).$asArray();
+      } else {
+        return null;
+      }
     },
     changeBalance: function(account, change){
       change.createdAt = Firebase.ServerValue.TIMESTAMP;
