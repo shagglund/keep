@@ -1,3 +1,14 @@
+<div ui-view="top">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel">
+        <div class="panel-body">
+          <div ui-view="top-content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-xs-12 col-md-7">
     <div class="panel">
@@ -6,10 +17,13 @@
       </div>
     </div>
   </div>
-  <div class="col-xs-12 col-md-5">
-    <div class="panel">
-      <div class="panel-body">
-        <div ui-view="sidelist"></div>
+  <div ui-view="sidelist">
+    <div class="col-xs-12 col-md-5">
+      <div class="panel">
+        <div class="panel-body">
+          <div ui-view="sidelist-content">
+          </div>
+        </div>
       </div>
     </div>
   </div>

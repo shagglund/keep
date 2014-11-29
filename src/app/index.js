@@ -43,10 +43,16 @@ angular.module('kassa', [
       url: '/new',
       views: {
         '@root' : {
-          templateUrl: '/app/main/single_column_content.html'
+          templateUrl: '/app/main/two_column_content.html'
         },
         '@root.products.new' : {
           template: '<product><product>'
+        },
+        'sidelist@root.products.new' : {
+          template: '<div></div>'
+        },
+        'top-content@root.products.new' : {
+          template: '<product-breadcrumb><product-breadcrumb>'
         }
       }
     })
@@ -59,7 +65,11 @@ angular.module('kassa', [
         '@root.products.edit' : {
           template: '<product><product>'
         },
-        '@sidelist.products.edit' : {
+        'sidelist@root.products.edit' : {
+          template: '<div></div>' //override default template
+        },
+        'top-content@root.products.edit' : {
+          template: '<product-breadcrumb><product-breadcrumb>'
         }
       }
     })
@@ -75,10 +85,16 @@ angular.module('kassa', [
       url: '/new',
       views: {
         '@root' : {
-          templateUrl: '/app/main/single_column_content.html'
+          templateUrl: '/app/main/two_column_content.html'
         },
         '@root.accounts.new' : {
           template: '<account><account>'
+        },
+        'sidelist@root.accounts.new' : {
+          template: '<div></div>'
+        },
+        'top-content@root.accounts.new' : {
+          template: '<account-breadcrumb><account-breadcrumb>'
         }
       }
     })
@@ -91,8 +107,11 @@ angular.module('kassa', [
         '@root.accounts.edit' : {
           template: '<account><account>'
         },
-        'sidelist@root.accounts.edit': {
+        'sidelist-content@root.accounts.edit': {
           template: '<buy-list></buy-list>'
+        },
+        'top-content@root.accounts.edit' : {
+          template: '<account-breadcrumb><account-breadcrumb>'
         }
       }
     })
@@ -105,8 +124,11 @@ angular.module('kassa', [
         '@root.buy' : {
           template: '<buyer-list></buyer-list>'
         },
-        'sidelist@root.buy': {
+        'sidelist-content@root.buy': {
           template: '<buy-list></buy-list>'
+        },
+        'top@root.buy': {
+          template: '<div></div>'
         }
       }
     })
@@ -116,7 +138,7 @@ angular.module('kassa', [
         '@root.buy' : {
           template: '<buy-product-list></buy-product-list>'
         },
-        'sidelist@root.buy': {
+        'sidelist-content@root.buy': {
           template: '<basket></basket>'
         }
       }
