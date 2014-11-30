@@ -47,7 +47,7 @@ angular.module('kassa', [
       url: '/new',
       views: {
         '@root' : {
-          templateUrl: '/app/main/two_column_content.html'
+          templateUrl: 'app/main/two_column_content.html'
         },
         '@root.products.new' : {
           template: '<product><product>'
@@ -64,7 +64,7 @@ angular.module('kassa', [
       url: '/:productId',
       views: {
         '@root' : {
-          templateUrl: '/app/main/two_column_content.html'
+          templateUrl: 'app/main/two_column_content.html'
         },
         '@root.products.edit' : {
           template: '<product><product>'
@@ -89,7 +89,7 @@ angular.module('kassa', [
       url: '/new',
       views: {
         '@root' : {
-          templateUrl: '/app/main/two_column_content.html'
+          templateUrl: 'app/main/two_column_content.html'
         },
         '@root.accounts.new' : {
           template: '<account><account>'
@@ -106,7 +106,7 @@ angular.module('kassa', [
       url: '/:accountId',
       views: {
         '@root' : {
-          templateUrl: '/app/main/two_column_content.html'
+          templateUrl: 'app/main/two_column_content.html'
         },
         '@root.accounts.edit' : {
           template: '<account><account>'
@@ -123,7 +123,7 @@ angular.module('kassa', [
       url: '/buy',
       views: {
         '@root' : {
-          templateUrl: '/app/main/two_column_content.html'
+          templateUrl: 'app/main/two_column_content.html'
         },
         '@root.buy' : {
           template: '<buyer-list></buyer-list>'

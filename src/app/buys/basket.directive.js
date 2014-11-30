@@ -29,7 +29,7 @@ angular.module('kassa')
 
   return {
     scope: {},
-    templateUrl: '/app/buys/basket.html',
+    templateUrl: 'app/buys/basket.html',
     controller: basketCtrl,
     controllerAs: 'ctrl'
   };

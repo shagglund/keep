@@ -49,7 +49,7 @@ angular.module('kassa')
   };
 
   return {
-    templateUrl: '/app/products/product.html',
+    templateUrl: 'app/products/product.html',
     controller: productCtrl,
     controllerAs: 'ctrl'
   };

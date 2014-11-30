@@ -4,7 +4,7 @@ angular.module('kassa')
 .directive('changePassword', function($state, $stateParams, Authentication, Message){
   return {
     scope: {},
-    templateUrl: '/app/authentication/change_password.html',
+    templateUrl: 'app/authentication/change_password.html',
     link: function($scope){
       $scope.email = $stateParams.email;
       $scope.oldPassword = $stateParams.password;

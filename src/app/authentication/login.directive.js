@@ -4,7 +4,7 @@ angular.module('kassa')
 .directive('login', function($location, Authentication, Message){
   return {
     scope: {},
-    templateUrl: '/app/authentication/login.html',
+    templateUrl: 'app/authentication/login.html',
     link: function($scope){
       $scope.login = function(email, password){
         $scope.sending = true;

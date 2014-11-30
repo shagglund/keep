@@ -12,7 +12,7 @@ angular.module('kassa')
   };
 
   return {
-    templateUrl: '/app/accounts/account_breadcrumb.html',
+    templateUrl: 'app/accounts/account_breadcrumb.html',
     controller: accountBreadcrumbCtrl,
     controllerAs: 'ctrl'
   };

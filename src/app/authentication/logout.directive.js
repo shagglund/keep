@@ -4,7 +4,7 @@ angular.module('kassa')
 .directive('logout', function($state, Authentication){
   return {
     scope: {},
-    templateUrl: '/app/authentication/logout.html',
+    templateUrl: 'app/authentication/logout.html',
     replace: true,
     link: function($scope){
       $scope.logout = function(){

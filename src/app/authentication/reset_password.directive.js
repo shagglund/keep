@@ -5,7 +5,7 @@ angular.module('kassa')
 
   return {
     scope: {},
-    templateUrl: '/app/authentication/reset_password.html',
+    templateUrl: 'app/authentication/reset_password.html',
     link: function($scope){
       $scope.sending = false;
       $scope.reset = function(email){

@@ -10,7 +10,7 @@ angular.module('kassa')
   };
 
   return {
-    templateUrl: '/app/accounts/account_list.html',
+    templateUrl: 'app/accounts/account_list.html',
     controller: accountListCtrl,
     controllerAs: 'ctrl'
   };

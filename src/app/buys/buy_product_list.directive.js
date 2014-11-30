@@ -14,7 +14,7 @@ angular.module('kassa')
 
   return {
     scope: {},
-    templateUrl: '/app/buys/buy_product_list.html',
+    templateUrl: 'app/buys/buy_product_list.html',
     controller: buyProductListCtrl,
     controllerAs: 'ctrl'
   };

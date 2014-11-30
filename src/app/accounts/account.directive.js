@@ -74,7 +74,7 @@ angular.module('kassa')
   };
 
   return {
-    templateUrl: '/app/accounts/account.html',
+    templateUrl: 'app/accounts/account.html',
     controller: accountCtrl,
     controllerAs: 'ctrl'
   };
