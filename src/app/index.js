@@ -33,7 +33,7 @@ angular.module('kassa', [
     .state('root', {
       url: '',
       abstract: true,
-      templateUrl: 'app/main/main.html'
+      templateUrl: 'app/main/main.html',
     })
     .state('root.products', {
       url: '/products',
@@ -148,7 +148,10 @@ angular.module('kassa', [
       }
     });
 
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider
+    .when('', '/buy')
+    .when('/', '/buy')
+    .otherwise('/404');
 })
 .config(function(gravatarServiceProvider) {
   gravatarServiceProvider.defaults = {
