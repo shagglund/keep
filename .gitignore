@@ -4,3 +4,4 @@ dist
 .tmp
 .sass-cache
 src/app/config.js
+firebase.json
