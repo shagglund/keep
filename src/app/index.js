@@ -23,8 +23,12 @@ angular.module('kassa', [
       template: '<login><login>'
     })
     .state('auth.reset', {
-      url: '/reset',
+      url: '/reset-password',
       template: '<reset-password><reset-password>'
+    })
+    .state('auth.change', {
+      url: '/change-password?email&password',
+      template: '<change-password><change-password>'
     })
     .state('root', {
       url: '',
