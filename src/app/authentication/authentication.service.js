@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('kassa')
-.factory('Authentication', function($location, $firebaseAuth, Firebase, FirebaseRootUrl){
+.factory('Authentication', function($location, $state, $firebaseAuth, Firebase, FirebaseRootUrl){
   var authenticator = $firebaseAuth(new Firebase(FirebaseRootUrl)),
     authCallbacks = [],
     loadedAuth = authenticator.$getAuth();
 
   authenticator.$onAuth(function(authData){
     loadedAuth = authData;
-    angular.forEach(authCallbacks, function(cb){ cb(authData) });
+    angular.forEach(authCallbacks, function(cb){ cb(authData); });
   });
 
   var AuthenticationService = function(){
@@ -19,10 +19,17 @@ angular.module('kassa')
       return function(){
         authCallbacks.splice(authCallbacks.indexOf(cb),1);
       };
-    }
-  }
+    };
+  };
   //set prototype to firebase authenticator to allow transparent use of methods
   AuthenticationService.prototype = authenticator;
 
-  return new AuthenticationService();
+  var instance = new AuthenticationService();
+  instance.handleAuth(function(authData){
+    if (!authData) {
+      $state.go('auth.login', {next: $location.path()});
+    }
+  });
+
+  return instance;
 });
