@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kassa')
+angular.module('keep')
 .directive('basket', function($state, Account, Basket, Message){
 
   var basketCtrl = function(){

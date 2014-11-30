@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kassa')
+angular.module('keep')
 .factory('Authentication', function($location, $state, $firebaseAuth, Firebase, FirebaseRootUrl){
   var authenticator = $firebaseAuth(new Firebase(FirebaseRootUrl)),
     authCallbacks = [],

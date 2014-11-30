@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kassa')
+angular.module('keep')
 .service('Account', function(
   $firebase,
   Authentication,

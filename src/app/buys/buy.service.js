@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kassa')
+angular.module('keep')
 .service('Buy', function($q, $firebase, Firebase, FirebaseRootUrl, Authentication, Account, Product){
   var DELETE_TIME_THRESHOLD = 5*60*1000, //5 minutes
     TYPE_CREATE = 1,

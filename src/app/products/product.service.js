@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kassa')
+angular.module('keep')
 .service('Product', function($firebase, Authentication, Firebase, FirebaseRootUrl){
   var products = products,
     productCallbacks = [];

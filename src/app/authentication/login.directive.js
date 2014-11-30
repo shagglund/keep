@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kassa')
+angular.module('keep')
 .directive('login', function($location, Authentication, Message){
   return {
     scope: {},

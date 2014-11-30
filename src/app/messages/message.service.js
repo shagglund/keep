@@ -1,5 +1,5 @@
 'use strict';
-angular.module('kassa')
+angular.module('keep')
 .service('Message', function($window){
   return {
     error: function(msg){

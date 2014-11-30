@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kassa')
+angular.module('keep')
 .directive('buyList', function(Buy, Account, Product, $stateParams){
   var buyListCtrl = function(){
     var self = this;

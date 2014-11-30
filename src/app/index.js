@@ -1,13 +1,13 @@
 'use strict';
 
-angular.module('kassa', [
+angular.module('keep', [
   'ngAnimate',
   'ngTouch',
   'ui.router',
   'ui.gravatar',
   'firebase',
   'smart-table',
-  'kassaConfig'
+  'keepConfig'
 ])
 .constant('Firebase', Firebase)
 .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {

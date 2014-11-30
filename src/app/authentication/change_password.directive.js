@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kassa')
+angular.module('keep')
 .directive('changePassword', function($state, $stateParams, Authentication, Message){
   return {
     scope: {},

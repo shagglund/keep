@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kassa')
+angular.module('keep')
 .directive('accountBreadcrumb', function($stateParams, Account){
   var accountBreadcrumbCtrl = function(){
     var self = this;

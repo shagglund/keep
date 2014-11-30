@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kassa')
+angular.module('keep')
 .directive('product', function($state, $stateParams, Product, Message){
   var CREATE_SUCCESS_MSG = 'Product created successfully',
     UPDATE_SUCCESS_MSG = 'Product updated successfully',

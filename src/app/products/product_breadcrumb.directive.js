@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kassa')
+angular.module('keep')
 .directive('productBreadcrumb', function($stateParams, Product){
   var productBreadcrumbCtrl = function(){
     var self = this;

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('kassa')
+angular.module('keep')
 .service('Basket', function(Buy){
   function calculateNewBalance(account, total){
     return account.balance - total;
