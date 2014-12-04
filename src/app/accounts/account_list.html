@@ -13,7 +13,7 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="panel">
-      <div class="panel-body">
+      <div class="panel-body table-responsive">
         <table
           class="table table-hover table-unbordered"
           st-table="accountCollection"
@@ -22,35 +22,38 @@
           <thead>
             <tr>
               <th></th>
-              <th>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <span class="fa fa-fw fa-search"></span>
+              <th colspan=8>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <span class="fa fa-fw fa-search"></span>
+                      </div>
+                      <input
+                        class="input-sm form-control"
+                        type="search"
+                        placeholder="Name"
+                        st-search="'name'"
+                        st-delay=100
+                        />
+                    </div>
                   </div>
-                  <input
-                    class="input-sm form-control"
-                    type="search"
-                    placeholder="Name"
-                    st-search="'name'"
-                    st-delay=100
-                    />
+                  <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <span class="fa fa-fw fa-search"></span>
+                      </div>
+                      <input
+                        class="input-sm form-control"
+                        type="search"
+                        placeholder="Email"
+                        st-search="'email'"
+                        st-delay=100
+                        />
+                    </div>
+                  </div>
                 </div>
               </th>
-              <th>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <span class="fa fa-fw fa-search"></span>
-                  </div>
-                  <input
-                    class="input-sm form-control"
-                    type="search"
-                    placeholder="Email"
-                    st-search="'email'"
-                    st-delay=100
-                    />
-                </div>
-              </th>
-              <th colspan=6></th>
             </tr>
             <tr>
               <th></th>
